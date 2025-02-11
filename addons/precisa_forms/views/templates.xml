@@ -1,0 +1,393 @@
+<odoo>
+  <data>
+    <!-- Definición de la Plantilla del Reporte -->
+    <template id="vinculation_form_template">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="web.external_layout">
+            <style>
+              span{
+                font-size: 15px;
+                text-transform: capitalize;
+              }
+
+              strong{
+                font-size: 15px;
+                font-weight: normal
+              }
+
+              body, .page {
+                margin: 0;
+                padding: 0;
+              }
+
+
+              th{
+                color:white
+              }
+            </style>
+
+            <div class="page">
+              <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th style="background-color:#135f40" colspan="2">INFORMACION GENERAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Primer grupo de campos: Nombres y Documento -->
+                    <tr>
+                        <td>
+                            <strong  style="font-size: mdium" class="fw-normal">Primer Nombre:</strong>
+                            <span t-field="o.first_name"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Primer Apellido:</strong>
+                            <span t-field="o.last_name"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Cédula de Identidad:</strong>
+                            <span t-field="o.document"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Estado Civil:</strong>
+                            <span t-field="o.marital_status"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Sexo:</strong>
+                            <span t-field="o.gender"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Teléfono Residencial:</strong>
+                            <span t-field="o.residential_phone"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Correo Electrónico:</strong>
+                            <span t-field="o.selected_email_id"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Lugar de Nacimiento:</strong>
+                            <span t-field="o.birth_place"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Provincia / Estado:</strong>
+                            <span t-field="o.state_id"/><br/>
+                            <strong  style="font-size: mdium" class="fw-normal">Nacionalidad:</strong>
+                            <span t-field="o.nationality"/>
+                        </td>
+                        <td>
+                            <strong class="fw-normal">Segundo Nombre:</strong>
+                            <span t-field="o.second_name"/><br/>
+                            <strong class="fw-normal">Segundo Apellido:</strong>
+                            <span t-field="o.second_lastname"/><br/>
+                            <strong class="fw-normal">Número de Pasaporte:</strong>
+                            <span t-field="o.passport_document"/><br/>
+                            <strong class="fw-normal">Apellido de Casada - Si Aplica:</strong>
+                            <span t-field="o.married_name"/><br/>
+                            <strong class="fw-normal">Fecha de Nacimiento:</strong>
+                            <span t-field="o.birth_date"/><br/>
+                            <strong class="fw-normal">Celular:</strong>
+                            <span t-field="o.cellphone"/><br/>
+                            <strong class="fw-normal">Apartado Postal:</strong>
+                            <span t-field="o.postal"/><br/>
+                            <strong class="fw-normal">País:</strong>
+                            <span t-field="o.country_id"/><br/>
+                            <strong class="fw-normal">Ciudad:</strong>
+                            <span t-field="o.city"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+              <!-- Información Adicional -->
+            <table class="table table-borderless" style="margin-top:-35px">
+              <thead>
+                <tr>
+                  <th style="background-color:#135f40" colspan="2" >INFORMACION DE ADICIONALES</th><br/>
+                </tr>
+              </thead>
+              <tbody>
+                <td>
+                  <h6 style="font-weight:900">ADICIONAL 1</h6>
+                  <strong>Nombre:</strong>
+                  <span t-field="o.additional_name"/><br/>
+                  <strong>Apellido:</strong>
+                  <span t-field="o.additional_lastname"/><br/>
+                  <strong>Cedula de identidad:</strong>
+                  <span t-field="o.additional_document"/><br/>
+                  <strong>Nacionalidad Adicional:</strong>
+                  <span t-field="o.additional_nationality"/><br/>
+
+                  <strong>Parentesco</strong>
+                  <span t-field="o.additional_kinship"/><br/>
+                  <strong>Fecha de Nacimiento Adicional:</strong>
+                  <span t-field="o.additional_birth_date"/>
+                </td>
+                <td>
+                  <h6 style="font-weight:900">ADICIONAL 2</h6>
+                  <strong>Nombre:</strong>
+                  <span style="margin-bottom: 10px; display: block;" t-field="o.additional_name2"/><br/>
+                  <strong>Apellido:</strong>
+                  <span style="margin-bottom: 10px; display: block;" t-field="o.additional_lastname2"/><br/>
+                  <strong>Cedula de identidad:</strong>
+                  <span style="margin-bottom: 10px; display: block;" t-field="o.additional_document2"/><br/>
+                  <strong>Nacionalidad:</strong>
+                  <span style="margin-bottom: 10px; display: block;" t-field="o.additional_nationality2"/><br/>
+                  <strong>Parentesco</strong>
+                  <span style="margin-bottom: 10px; display: block;" t-field="o.additional_kinship2"/><br/>
+                  <strong>Fecha de Nacimiento:</strong>
+                  <span style="margin-bottom: 10px; display: block;" t-field="o.additional_birth_date2"/>
+                </td>
+              </tbody>
+              </table>
+
+              <!-- Información de Residencia -->
+               <table class="table table-borderless" style="margin-top:-20px"> 
+                <thead>
+                  <tr>
+                    <th style="background-color:#135f40" colspan="3" >
+                      INFORMACION DE RESIDENCIA
+                    </th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr>
+                        <td style="width: 45% !important;">
+                          <strong>Dirección de Recidencia:</strong>
+                          <span t-field="o.selected_address_id"/>
+                          <br></br>
+                          <strong>Edificio:</strong>
+                          <span t-field="o.building"/><br/>
+                          <strong>Ciudad:</strong>
+                          <span t-field="o.residential_city"/>
+                        </td>
+                        <td style="width: 27.5% !important;">
+                          <strong>Apartamento:</strong>
+                          <span t-field="o.apartment"/><br/>
+                          <strong>Provincia:</strong>
+                          <span t-field="o.residential_state_id"/>
+                        </td>
+                        <td style="width: 27.5% !important;">
+                          <strong>Sector:</strong>
+                          <span t-field="o.sector"/><br/>
+                          <strong>Ciudad:</strong>
+                          <span t-field="o.residential_city"/>
+                        </td>
+                  </tr>
+                </tbody>
+               </table>
+
+               <table style="margin-top:-20px;width:100%;margin-bottom: 10px">
+                <thead>
+                  <tr>
+                    <th style="background-color:#135f40; padding: 10px; margin:0 " colspan="3" >
+                     INFORMACION DE EMPLEO
+                    </th>
+                  </tr>
+                </thead>
+                <tbody style="border-top:18px solid transparent;border-left:15px solid transparent">
+                  <tr>
+                    <td style="width: 33.3% !important;">
+                      <strong>Nivel educativo:</strong>
+                      <span t-field="o.education_level"/>
+                    </td>
+                    <td style="width: 33.3% !important;">
+                      <strong>Ocupación:</strong>
+                      <span t-field="o.job_occupation"/>
+                    </td>
+                    <td style="width: 33.3% !important;">
+                      <strong>Profesión:</strong>
+                      <span t-field="o.profession"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Actividad Económica o Laboral:</strong>
+                      <span t-field="o.economic_activity"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Salario Mensual:</strong>
+                      <span t-field="o.monthly_salary"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <!-- <td>
+                      <strong>Ingreso Mensual: en pesos RD</strong>
+                      <span t-field="o.monthly_income"/>
+                    </td>
+                    <td>
+                      <strong> En dolares:</strong>
+                      <span t-field="o.monthly_income_usd"/>
+                    </td> -->
+                    <td>
+                      <strong>Otros Ingresos:</strong>
+                      <span t-field="o.others_income"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Nombre de la Empresa:</strong>
+                      <span t-field="o.job_company"/>
+                    </td>
+                    <td>
+                      <strong>Fecha de Ingreso:</strong>
+                      <span t-field="o.entry_date"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Actividad Económica de le Empresa:</strong>
+                        <span t-field="o.job_economic_activity"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Correo de la Empresa:</strong>
+                      <span t-field="o.job_email"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Teléfono de la Empresa:</strong>
+                      <span t-field="o.job_telephone"/>
+                    </td>
+                    <td>
+                      <strong>Celular:</strong>
+                      <span t-field="o.job_cellphone"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Dirección de la Empresa:</strong>
+                        <span t-field="o.job_address"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Sector:</strong>
+                      <span t-field="o.job_sector"/>
+                    </td>
+                    <td>
+                      <strong>Ciudad:</strong>
+                      <span t-field="o.job_city"/>
+                    </td>
+                    <td>
+                      <strong>País:</strong>
+                      <span t-field="o.job_country_id"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Apartado Postal No:</strong>
+                      <span t-field="o.job_postal"/>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td>
+                      <strong>Tipo de Solicitud:</strong>
+                      <span t-field="o.request_type"/><br/>
+                      <strong>Vinculacion con Colaborador:</strong>
+                      <span t-field="o.collaborator_relationship"/><br/>
+                      <strong>Ejecutivo que refiere:</strong>
+                      <span t-field="request.env.user.name"/><br/>
+                      <strong>Producto Sugerido:</strong>
+                      <span t-field="o.suggested_product"/><br/>
+                      <strong>Límite Sugerido:</strong>
+                      <span t-field="o.suggested_limit"/>
+                    </td>
+                    <td>
+                      <strong>Tipo de Canal:</strong>
+                      <span t-field="o.canal_type"/><br/>
+                      <strong>Nombre del Canal:</strong>
+                      <span t-field="o.canal_name"/>
+                    </td>
+                  </tr>
+                </tbody>
+               </table>
+
+               <table class="table table-borderless" >
+                <thead>
+                  <tr>
+                    <th style="background-color:#135f40" colspan="2" >
+                      PERSONA EXPUESTA POLITICAMENTE
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td>
+                    <strong>Usted tiene o ha ocupado un cargo politico?</strong>
+                    <span t-if="o.politician_charge">
+                      <input type="checkbox" checked="checked" disabled="disabled"/>
+                    </span>
+                    <span t-if="not o.politician_charge">
+                      <input type="checkbox" disabled="disabled"/>
+                    </span>
+                  </td>
+                  <tr>
+                    <td>
+                      <strong>Cargo:</strong>
+                      <span t-field="o.charge" t-attf-class="{'o_invisible': o.politician_charge == False}"/>
+                    </td>
+                    <td>
+                      <strong>Institución:</strong>
+                      <span t-field="o.institution" t-attf-class="{'o_invisible': o.politician_charge == False}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    
+                      <div t-attf-class="{'o_invisible': o.is_related == False}">
+                        <!-- Definir las opciones de selección con claves coincidentes -->
+                        <t t-set="related_options" t-value="{
+                          'father': 'Padre',
+                          'son': 'Hijos',
+                          'grandparents': 'Abuelos',
+                          'spouses': 'Cónyuges',
+                          'parents_in_law': 'Suegros',
+                          'sons_in_law': 'Yernos',
+                          'daughters_in_law': 'Nueras',
+                          'other': 'Otro'
+                        }"/>
+
+                        <table style="margin-left:10px">
+                          <strong style="margin-left:10px">Usted tiene algun parentesco con alguna Persona Expuesta Politicamente (PEP)?:</strong>
+                          <span t-if="o.is_related">
+                            <input type="checkbox" checked="checked" disabled="disabled"/>
+                          </span>
+                          <span t-if="not o.is_related">
+                            <input type="checkbox" disabled="disabled"/>
+                          </span>
+                          <p style="margin-left:10px">En caso de afirmativo indique:</p>
+                          <tr>
+                              <t t-foreach="related_options.items()" t-as="option">
+                                  <td style="padding: 5px;">
+                                      <input type="checkbox" 
+                                             t-att-checked="o.related_type == option[0] and 'checked' or False"
+                                             disabled="disabled"/>
+                                      <t t-esc="option[1]"/>
+                                  </td>
+                              </t>
+                          </tr>
+                        </table>
+                      </div>
+                  </tr>
+                  
+                </tbody>
+               </table>
+               <br/>
+               <p style="margin-left:10px">
+                Declaración Jurada: El (los) aquí firmante(s) y anteriormente identificado(s) declara(n) que ha(n) llenado 
+                este formulario proporcionando información veraz y exacta de su conocimiento y autoriza(n) a <strong style="font-weight:bold">Banco Múltiple 
+                  LAFISE</strong> a realizar las revisiones y/o requerimientos de lugar disposiciones de la Ley Orgánica sobre Protección de 
+                Datos de Carácter Personal No. 172-13 del 13 de dicistrongbre. Declaro que los datos que he suministrado son correctos, 
+                y autorizo a Banco <strong style="font-weight:bold">LAFISE Múltiple LAFISE</strong>, a realizar lo necesario para la comprobación de los mismos.
+               </p>
+               <br/>
+                <div style="text-align: center;">
+                <hr style="width: 40%; border: 1px solid black; margin: 0 auto;" />
+                <strong>Firma del cliente</strong>
+                </div>
+              </div>
+          </t>
+        </t>
+      </t>
+    </template>
+
+    <!-- Acción de Reporte -->
+    <record id="action_report_vinculation_form" model="ir.actions.report">
+      <field name="name">Reporte de Formulario de Vinculación</field>
+      <field name="model">precisa_forms.form</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">precisa_forms.vinculation_form_template</field>
+      <field name="report_file">precisa_forms.vinculation_form_template</field>
+      <field name="print_report_name">'Reporte de Formulario de Vinculación - %s' % (object.document)</field>
+      <field name="binding_model_id" ref="model_precisa_forms_form"/>
+      <field name="binding_type">report</field>
+    </record>
+  </data>
+</odoo>

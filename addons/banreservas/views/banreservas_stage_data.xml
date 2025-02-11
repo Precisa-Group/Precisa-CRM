@@ -1,0 +1,15 @@
+<odoo>
+    
+    <record id="stage_sale" model="banreservas.stage">
+        <field name="name">Venta</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="stage_not_instreted" model="banreservas.stage">
+        <field name="name">No Interesado</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="stage_incomplete" model="banreservas.stage">
+        <field name="name">Incompleto</field>
+        <field name="sequence">3</field>
+    </record>
+</odoo>

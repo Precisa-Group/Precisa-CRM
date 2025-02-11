@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="view_call_manual_entry_form" model="ir.ui.view">
+            <field name="name">call.manual.entry.form</field>
+            <field name="model">calls.and.contacts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="call_date"/>
+                            <br/>
+                            <field name="total_calls"/>
+                            <br/>
+                            <field name="total_contacts"/>
+                            <br/>
+                            <field name="work_hours"/>
+                            <br/>
+                            <field name="total_agents"/>
+                        </group>
+
+                        <footer>
+                            <button string="Guardar" type="object" class="btn-primary" name="action_save_calls"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_call_manual_entry" model="ir.actions.act_window">
+            <field name="name">Informacion adicional de productividad</field>
+            <field name="res_model">calls.and.contacts</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="submenu_forms_banreservas4"
+              name="Llamadas y contactos"
+              parent="menu_forms_banreservas"  
+              action="action_call_manual_entry" 
+        />
+    </data>
+</odoo>

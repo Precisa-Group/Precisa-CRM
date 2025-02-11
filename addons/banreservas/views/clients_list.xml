@@ -1,0 +1,107 @@
+<odoo>
+    <data>
+        <!-- Vista de árbol personalizada -->
+        <record id="view_res_partner_tree_custom" model="ir.ui.view">
+            <field name="name">res.partner.tree.custom</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="document"/>
+                    <field name="tc_propouse"/>
+                    <field name="campaign"/>
+                    <field name="user_id"/>
+                    <field name="campaing_month"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_res_partner_search_custom" model="ir.ui.view">
+        <field name="name">res.partner.search.custom</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Filtros por defecto -->
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="user_id" string="Usuario Responsable"/>
+                
+                <!-- Filtro por usuario responsable -->
+                
+
+
+                <!-- Filtro por campo 'is_gestioned' -->
+                <filter name="filter_is_gestioned" 
+                        string="Gestionados" 
+                        domain="[('is_gestioned', '=', True)]"/>
+
+                <filter name="filter_is_no_gestioned" 
+                        string="No Gestionados" 
+                        domain="[('is_gestioned', '=', False)]"/>
+
+                <!-- Agrupación por usuario responsable -->
+                <group expand="1" string="Agrupaciones">
+                    <filter name="group_by_user_id" 
+                            string="Usuario Responsable" 
+                            context="{'group_by': 'user_id'}"/>
+                </group>
+
+                <group expand="1" string="Agrupaciones por camapana">
+                    <filter name="group_by_campaing_month" 
+                            string="Mes de la campaña" 
+                            context="{'group_by': 'campaing_month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+        <record id="view_res_partner_form_custom" model="ir.ui.view">
+            <field name="name">res.partner.form.custom</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="last_name"/>
+                            <field name="document"/>
+                            <field name="campaing_month"/>
+                            <field name="tc_propouse"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="phone_2"/>
+                            <field name="phone_3"/>
+                            <field name="mobile"/>
+                            <field name="mobile_2"/>
+                            <field name="mobile_3"/>
+                        </group>
+                        <button name="redirect_to_form" type="object" string="Generar formulario" class="oe_highlight"/>
+                        <button name="view_form" type="object" string="Ver formulario" class="oe_highlight"/>
+                    </group>
+                    
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para la vista -->
+        <record id="action_res_partner_tree_custom" model="ir.actions.act_window">
+            <field name="name">Clientes</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_res_partner_tree_custom')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_res_partner_form_custom')})]"/>
+            <field name="domain">[('campaign', '=', 'banreservas')]</field>
+        </record>
+
+        <!-- Menú para la vista -->
+        <menuitem id="submenu_forms_banreservas5"
+                  name="Lista clientes"
+                  parent="menu_forms_banreservas"
+                  action="action_res_partner_tree_custom"/>
+    </data>
+</odoo>

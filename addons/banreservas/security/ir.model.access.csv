@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_banreservas_forms,banreservas.forms,model_banreservas_forms,base.group_user,1,1,1,1
+access_banreservas_offices,res.banreservas.offices,model_res_banreservas_offices,base.group_user,1,1,1,1
+access_cards,res.banreservas.cards,model_res_banreservas_cards,base.group_user,1,1,1,1
+access_form_wizard,form.wizard,model_form_wizard,base.group_user,1,1,1,1
+access_form_call_contacts,calls.and.contacts,model_calls_and_contacts,base.group_user,1,1,1,1
+access_report_wizard_banreservas,report.wizard.banreservas,model_report_wizard_banreservas,base.group_user,1,1,1,1
+access_agent_hours_banreservas,agent.hours.banreservas,model_agent_hours_banreservas,base.group_user,1,1,1,1
+access_pending_forms,pending.forms,model_pending_forms,base.group_user,1,1,1,1
+access_reassign_customers_wizard,reassign.customers.wizard,model_reassign_customers_wizard,base.group_user,1,1,1,1
+access_productivity_wizard_banreservas,productivity.wizard.banreservas,model_productivity_wizard_banreservas,base.group_user,1,1,1,1

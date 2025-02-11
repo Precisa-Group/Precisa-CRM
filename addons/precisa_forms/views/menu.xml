@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="view_select_form_wizard" model="ir.ui.view">
+            <field name="name">select.form.wizard.form</field>
+            <field name="model">select.form.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Seleccionar Formulario">
+                    <header>
+                        <button name="action_end_work" type="object" string="Terminar Trabajo" class="btn-primary"/>
+                        <button name="action_close_all_sessions_at_6_pm" type="object" string="Cerrar todas las secciones" class="btn-primary" groups="banreservas.group_edit_propose_limit"/>
+                        <button name="calculate_and_save_daily_hours" type="object" string="Registrar horas" class="btn-primary" groups="banreservas.group_edit_propose_limit"/>
+                        
+                    </header>
+                    <group>
+                        <field name="formulario"/>
+                    </group>
+                    <footer>
+                        <button string="Confirmar" type="object" name="confirm_selection" class="btn-primary" />
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        
+        <record id="action_open_select_form_wizard" model="ir.actions.act_window">
+            <field name="name">Seleccionar Formulario</field>
+            <field name="res_model">select.form.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+       
+    
+        <menuitem id="menu_select_form"
+          name="Seleccionar Formulario"
+          action="action_open_select_form_wizard"
+          parent="crm.crm_menu_root"
+          
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <!-- <record id="custom_crm_lead_tree_opportunity" model="ir.ui.view">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_name"/>
+                </xpath>
+            </field>
+        </record> -->
+
+        
+        <!-- <record id="custom_crm_lead_kanban_lead" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="partner_document" placeholder="Buscar por documento" />
+                </xpath>
+            </field>
+        </record> -->
+        
+
+
+        <record id="custom_crm_lead_tree_opportunity" model="ir.ui.view">
+            <field name="name">crm.lead.tree.opportunity.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Oportunidades personalizadas">
+                        <field name="partner_names" />
+                        <field name="partner_first_lastname" />
+                        <field name="partner_second_lastname" />
+                        <field name="partner_cellphone" />
+                        <field name="phone" />
+                        <field name="partner_document"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="group_banreservas" model="res.groups">
+            <field name="name">Grupo Banreservas</field>
+            
+        </record>
+
+        <record id="group_edit_propose_limit" model="res.groups">
+            <field name="name">Edit Proposed Limits</field>
+            
+        </record>
+    </data>
+</odoo>

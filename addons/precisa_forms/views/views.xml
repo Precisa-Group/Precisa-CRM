@@ -1,0 +1,324 @@
+<odoo>
+    <data>
+        <!-- Definición de la vista de árbol -->
+        <record id="view_precisa_forms_tree" model="ir.ui.view">
+            <field name="name">precisa_forms.tree</field>
+            <field name="model">precisa_forms.form</field>
+            <field name="arch" type="xml">
+                <tree default_order="id desc">
+                    <field name="first_name"/>
+                    <field name="last_name" />
+                    <field name="gender" />
+                    <field name="document" />
+                    <field name="create_uid" string="Agente"/>
+                    <field name="state" />
+
+                    <!-- Agrega otros campos que quieras mostrar en la vista de árbol -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_precisa_forms_search" model="ir.ui.view">
+            <field name="name">precisa_forms.search</field>
+            <field name="model">precisa_forms.form</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter string="Ultimos 7 Dias" name="flastweek"
+                    domain="[('date_local', '&gt;=', ((context_today() + relativedelta(weeks=-1, days=0)).strftime('%Y-%m-%d'))),
+                            ('date_local', '&lt;=', ((context_today() + relativedelta(weeks=-1, days=6)).strftime('%Y-%m-%d')))]"/>
+
+                    <filter string="Ayer" name="fyesterday"
+                    domain="[('date_local', '&gt;=', ((context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d'))),
+                            ('date_local', '&lt;=', (context_today().strftime('%Y-%m-%d')))]"/>
+
+                    <filter string="Hoy" name="fhoy"
+                    domain="[('date_local', '&gt;=', ((context_today()).strftime('%Y-%m-%d')))]"/>
+
+                    <filter string="Mes Pasado" name="flastmonth"
+                    domain="[('date_local', '&gt;=', ((context_today() + relativedelta(day=1, months=-1)).strftime('%Y-%m-%d'))),
+                            ('date_local', '&lt;', ((context_today() + relativedelta(months=0, day=1)).strftime('%Y-%m-%d')))]"/>
+
+                    <filter string="Este Mes" name="fthismonth"
+                    domain="[('date_local', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                            ('date_local', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
+
+                    <field name="create_uid" placeholder="Buscar por Agente..."/>
+                    <filter string="Agente" name="filter_creator" domain="[('create_uid', '!=', False)]"/>
+
+                    <field name="document" placeholder="Buscar por cédula..."/>
+                    
+                
+                    <!-- Sección de Estado -->
+                    <filter string="Estado" name="filter_state" context="{'group_by': 'state'}">
+                        <filter string="Nuevo" name="estado_Nuevo" domain="[('state', '=', 'Nuevo')]"/>
+                        <filter string="Ganada" name="estado_Ganada" domain="[('state', '=', 'Ganada')]"/>
+                        <filter string="Rechazada" name="estado_rechazada" domain="[('state', '=', 'Rechazada')]"/>
+                        <filter string="Volver a llamar" name="estado_volverLlamar" domain="[('state', '=', 'Volver a llamar')]"/>
+                        <filter string="Ilocalizable" name="estado_ilocalizable" domain="[('state', '=', 'Ilocalizable')]"/>
+                        <filter string="No contestado" name="estado_NoContestado" domain="[('state', '=', 'No contestado')]"/>
+                    </filter>            
+                    
+                    <!-- Por mes-->
+                    <filter string="Fecha" name="filtro_fecha" domain="[]" context="{'group_by': 'create_date'}" />
+                </search>
+            </field>
+        </record> 
+        
+        
+        <!-- Definición de la vista de formulario (si es necesario) -->
+        <record id="view_precisa_forms_form" model="ir.ui.view">
+            <field name="name">Formulario de vinculación</field>
+            <field name="model">precisa_forms.form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field':'fold'}"/>
+                        <!-- <button name="action_report_vinculation_form" type="action" string="Imprimir" class="oe_highlight"/> -->
+                    </header>
+                    <sheet>
+                        <style>
+                            /* Estilos para el título */
+                            .text-center {
+                                text-align: center;
+                            }
+                    
+                            .red {
+                                color: red; /* Ajusta el color según tus necesidades */
+                            }
+                    
+                        
+                    
+                            /* Estilos para la disposición del formulario */
+                            .oe_form_group {
+                                margin-top: 20px;
+                            }
+                    
+                            
+                    
+                            
+                        </style>
+                        <h2>Informaciones generales</h2>
+                        <label for='closing_date'></label>
+                        <field name='closing_date' help="DD/MM/AAAA" readonly='0'></field>
+                        <div class="oe_form_group mt-4">
+                            <div class="row justify-content-center">
+                                <!-- Primer campo sugerido -->
+                                <div class="col-md-3 text-center">
+                                    <div class="form-group">
+                                        <label for="suggested_limit" class="o_form_label" style="font-size: 24px; font-weight: bold; color: green;">Límite Sugerido</label>
+                                        <field name="suggested_limit" class="form-control" readonly="0"/>
+                                    </div>
+                                </div>
+                                <!-- Segundo campo sugerido -->
+                                <div class="col-md-3 text-center">
+                                    <div class="form-group">
+                                        <label for="suggested_product" class="o_form_label" style="font-size: 24px; font-weight: bold; color: green;">Producto Sugerido</label>
+                                        <field name="suggested_product" class="form-control" readonly="0"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <group>
+                            <group name="lead_info">
+                                    <field name="contact_id" widget="many2one"/>
+                                    <label for="first_name"/>
+                                    <div class="o_row">
+                                        <field name="first_name" readonly='0'/>
+                                    </div>
+                                    
+                                    <field name="last_name" readonly='0'/>
+                                    <field name="document" readonly='0'/>
+                                    <field name="marital_status"/>
+                                    <field name="gender" widget="radio" readonly='0' display="flex" />
+                                    <field name="residential_phone" readonly='0'/>
+                                    <field name="email_ids" widget='one2many_list' readonly='0'>
+                                        <tree editable="bottom">
+                                            <field name="email"/>
+                                        </tree>
+                                    </field>
+                                    <field name="selected_email_id" readonly='0' widget="many2one" />
+                                    <field name="birth_place" readonly='0'/>
+                                    <field name="state_id" widget="many2one" readonly='0'/>
+                                </group>
+                                <group >
+                                    <field name="nationality"/>
+                                    <field name="second_name"/>
+                                    <field name="second_lastname" />
+                                    <field name="passport_document" readonly='0'/>
+                                    <field name="married_name" />
+                                    <field name="birth_date" help="DD/MM/AAAA" readonly='0'/>
+                                    <field name="cellphone" readonly='0'/>
+                                    <field name="postal" readonly='0'/>
+                                    <field name="country_id" widget="many2one" readonly='0'/>
+                                    <field name="city" readonly='0' />
+                                    <field name="age" readonly='0'/>
+                                </group>  
+                            </group>
+
+                            <notebook>
+                                <page name="additional" string="Tarjeta habientes adicionales">
+                                    <group>
+                                        <group>
+                                            <h2>ADDICIONAL 1</h2>
+                                            <field name="additional_name"/>
+                                            <field name="additional_lastname"/>
+                                            <field name="additional_document" />
+                                            <field name="additional_nationality"/>
+                                            <field name="additional_kinship"/>
+                                            <field name="additional_birth_date"/>
+                                        </group>
+                                        <group>
+                                            <h2>ADDICIONAL 2</h2>
+                                            <field name="additional_name2"/>
+                                            <field name="additional_lastname2"/>
+                                            <field name="additional_document2" />
+                                            <field name="additional_nationality2"/>
+                                            <field name="additional_kinship2"/>
+                                            <field name="additional_birth_date2"/>
+                                        </group>
+                                    </group>
+                                </page>
+
+                                <page name="residential" string="Informacion de residencia">
+                                    <group>
+                                        <group>
+                                            <field name="address_ids" widget='one2many_list' readonly='0'>
+                                                <tree editable="bottom">
+                                                    <field name="address"/>
+                                                </tree>
+                                            </field>
+                                            <field name="selected_address_id" readonly='0' widget="many2one" />
+                                            <field name="building"/>
+                                            <field name="apartment"/>
+                                            <field name="sector"/>
+                                        </group>
+                                        <group>
+                                            <field name="residential_country_id" widget="many2one"/>
+                                            <field name="residential_state_id" widget="many2one"/>
+                                            <field name="residential_city"/>
+                                            
+                                        </group>
+                                    </group>
+                                </page>
+
+                                <page name="job" string="Informacion de empleo">
+                                    <h2>Informacion Economica</h2>
+                                    <group>
+                                        <group>
+                                            <field name="education_level" />
+                                            <field name="job_occupation" readonly='0' />
+                                            <field name="profession" />
+                                            <field name="economic_activity" />
+                                        </group>
+                                        <group>
+                                            <!-- <field name="level_annual_income" /> -->
+                                            <field name="monthly_salary" />
+                                            <!-- <field name="monthly_income" />
+                                            <field name="monthly_income_usd" /> -->
+                                            <field name="others_income" />
+                                        </group>
+                                    </group>
+                                    <hr></hr>
+                                    <h2>Informacion Laboral</h2>
+
+                                    <group>
+                                        <group>
+                                            <field name="job_company" />
+                                            <field name="entry_date" />
+                                            <field name="job_economic_activity" />
+                                            <field name="job_email" />
+                                            <field name="job_telephone" />
+                                            <field name="job_cellphone" />
+                                        </group>
+                                        <group>
+                                            <!-- <field name="job_fax" /> -->
+                                            <field name="job_address" />
+                                            <field name="job_sector" />
+                                            <field name="job_country_id" />
+                                            <field name="job_city" />
+                                            <field name="job_postal" />
+                                        </group>
+                                    </group>
+                                </page>
+
+                                <page name="request" string="Informacion sobre la solicitud">
+                                    <group>
+                                        <group>
+                                            <field name="request_type" placeholder="Ninguno" />
+                                            <field name="canal_type" placeholder="Ninguno"/>
+                                            <field name="canal_name"  />
+                                        </group>
+                                        <group>
+                                            <field name="collaborator_relationship" />
+                                            <field name="referring_excutive" />
+                                            
+                                        </group>
+                                    </group>
+                                </page>
+
+                                <page name="politicy" string="Persona expuesta politicamente">
+                                    <group>
+                                        <field name="politician_charge"/>
+                                        <field name="charge" attrs="{'invisible': [('politician_charge', '=', False)]}"/>
+                                        <field name="institution" attrs="{'invisible': [('politician_charge', '=', False)]}"/>
+                                        <br></br>
+                                        <field name="is_related"/>
+                                        <field name="related_type" widget="radio" attrs="{'invisible': [('is_related', '=', False)]}"/>
+                                        <field name="related_name" attrs="{'invisible': [('related_type', '=', False)]}"/>
+                                        <field name="related_charge" attrs="{'invisible': [('related_type', '=', False)]}"/>
+                                    </group>
+                                </page>
+
+                                <page name="history" string="Historial de comentarios">
+                                    <group>
+                                        
+                                        <!-- Campo One2many solo con vista tipo 'tree' -->
+                                        <field name="call_history_ids" widget="one2many" mode="tree" editable="bottom">
+                                            <tree string=" Historial de Comentarios">
+                                                <field name="comment"/>
+                                                <field name="state"/>
+                                                <field name="call_date"/>
+                                                <field name="user_id"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </page>
+                            </notebook>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+
+        <!-- Definición de la acción -->
+        <record id="action_mi_modelo" model="ir.actions.act_window">
+            <field name="name">Formularios</field>
+            <field name="res_model">precisa_forms.form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_precisa_forms_tree"/> <!-- Referencia correcta a la vista de árbol -->
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea un nuevo formulario.
+                </p>
+            </field>
+        </record>
+
+        <!-- Definición del menú -->
+        <menuitem id="menu_crm_mi_modulo"
+                name="Lafice"
+                parent="crm.crm_menu_root"  
+                sequence="10"
+                
+                   
+        />
+
+        <!-- Definición del submenú con una acción -->
+        <menuitem id="submenu_crm_mi_modulo"
+                name="Formularios de vinculacion"
+                parent="menu_crm_mi_modulo"
+                action="action_mi_modelo"
+                sequence="1" 
+        />
+    </data>
+</odoo>

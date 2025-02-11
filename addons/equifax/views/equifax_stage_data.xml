@@ -1,0 +1,38 @@
+<odoo>
+    <record id="stage_new" model="equifax.stage">
+        <field name="name">Nuevo</field>
+        <field name="sequence">1</field>
+        <field name="is_default">True</field>
+    </record>
+    <record id="stage_call_back" model="equifax.stage">
+        <field name="name">Volver a llamar</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="stage_uncontacted" model="equifax.stage">
+        <field name="name">No contactado</field>
+        <field name="sequence">3</field>
+        
+    </record>
+
+    <record id="stage_Untraceable" model="equifax.stage">
+        <field name="name">Ilocalizable</field>
+        <field name="sequence">4</field>
+        
+    </record>
+    <record id="stage_interested" model="equifax.stage">
+        <field name="name">Interesado/Comprara plan</field>
+        <field name="sequence">5</field>
+        
+    </record>
+    <record id="stage_rejected" model="equifax.stage">
+        <field name="name">Rechazado</field>
+        <field name="sequence">6</field>
+        
+    </record>
+    <record id="stage_accepted" model="equifax.stage">
+        <field name="name">Aceptado</field>
+        <field name="sequence">7</field>
+        
+    </record>
+
+</odoo>

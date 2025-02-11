@@ -1,0 +1,171 @@
+<odoo>
+  <data>
+    <record id="view_equifax_kanban_tree" model="ir.ui.view">
+      <field name="name">equifax.tree</field>
+      <field name="model">equifax</field>
+      <field name="arch" type="xml">
+        <tree default_order="id desc">
+          <field name="name" />
+          <field name="user_id" />
+          <field name="document" />
+          <field name="plan" />
+          <field name="stage_id" />
+
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_equifax_kanban_search" model="ir.ui.view">
+      <field name="name">equifax.search</field>
+      <field name="model">equifax</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="user_id" />
+          <filter string="Estado" name="filter_state" context="{'group_by': 'stage_id'}" />
+          <field name="document" string="Cedula"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="view_equifax_form" model="ir.ui.view">
+      <field name="name">equifax.form</field>
+      <field name="model">equifax</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <div class="o_form_sheet">
+              <div style="display: flex; justify-content: center; gap: 20px;">
+                  <div>
+                      <label for="start_date"/>
+                      <field name="start_date"/>
+                  </div>
+                  <div>
+                      <label for="end_date"/>
+                      <field name="end_date"/>
+                  </div>
+                  <div>
+                      <label for="contact_date"/>
+                      <field name="contact_date"/>
+                  </div>
+              </div>
+            </div>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="document"/>
+                <field name="user_id"/>
+                <field name="plan"/>
+                <field name="telephone"/>
+
+              </group>
+              <group>
+                <!-- <field name="partner_id" widget="many2one"/> -->
+                <field name="stage_id" widget="many2one"/>
+                <field name="gender"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="comment" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_res_partner_kanban_equifax" model="ir.ui.view">
+      <field name="name">equifax.kanban</field>
+      <field name="model">equifax</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="stage_id" class="o_kanban_small_column o_opportunity_kanban" archivable="false" sample="1">
+          <templates>
+              <t t-name="kanban-box">
+                  <div t-attf-class="oe_kanban_global_click card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <strong class="text-primary">
+                        <field name="name" />
+                      </strong>
+                    </div>
+                    <div class="card-body">
+                      <strong>
+                        Asignado:
+                      </strong>
+                      <field name="user_id"/>
+                      <br/>
+                      <strong>
+                        Celular:
+                      </strong>
+                      <field name="phone"/>
+                      <br/>
+                      <strong>
+                        Telefono:
+                      </strong>
+                      <field name="telephone"/>
+                    </div>
+
+                  </div>
+              </t>
+          </templates>
+       </kanban>
+      
+      
+      </field>
+    </record>
+
+    <!-- <record id="equifax_graph_view" model="ir.ui.view">
+      <field name="name">Grafica</field>
+      <field name="model">equifax</field>
+      <field name="arch" type="xml">
+        <graph disable_linking="1">
+          <field name="user_id" type="measure"/>
+        </graph>
+      </field>
+      
+    </record> -->
+
+    <record id="res_partner_kanban_equifax_view_graph"  model="ir.ui.view">
+      <field name="model">equifax</field>
+      <field name="arch" type="xml">
+        <graph string="equifax Analytic">
+          <field name="stage_id" />
+          <field name="user_id"/>
+        </graph>
+      </field>
+
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="equifax.action_window">
+      <field name="name">Equifax</field>
+      <field name="res_model">equifax</field>
+      <field name="view_mode">tree,form,kanban,graph</field>
+      <field name="view_id" ref="view_res_partner_kanban_equifax"/>
+      <field name="context">{'search_default_campaign': 'equifax'}</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create your first record
+        </p> 
+      </field>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem id="menu_equifax"
+              name="Equifax"
+              parent="crm.crm_menu_root"  
+              sequence="14" 
+                    
+    />
+
+    <menuitem id="menu_equifax_dashboard"
+              name="Equifax"
+              parent="menu_equifax"  
+              sequence="1" 
+              action="equifax.action_window"       
+    />
+
+    
+
+    
+  </data>
+</odoo>

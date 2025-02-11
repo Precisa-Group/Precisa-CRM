@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit_custom" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.custom</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/> <!-- Hereda la vista original -->
+            <field name="arch" type="xml">
+                <!-- Añadir los nuevos campos después de los campos nombre y dirección -->
+                <xpath expr="//span[@name='address_name']" position="before">
+                    
+                    <field name="first_name"/>
+                    <field name="last_name"/> 
+                    <field name="document"/>
+                    <field name="passport_document"/>
+                    <field name="gender" widget="radio"/>
+                    <field name="email_ids" widget='one2many_list'>
+                        <tree editable="bottom">
+                            <field name="email"/>
+                        </tree>
+                    </field>
+                    
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

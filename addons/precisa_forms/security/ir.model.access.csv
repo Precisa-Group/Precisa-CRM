@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_precisa_forms_form,precisa_forms.form,model_precisa_forms_form,base.group_user,1,1,1,1
+access_res_email_user,res.email,model_res_email,base.group_user,1,1,1,1
+access_call_history_user,call.history,model_call_history,base.group_user,1,1,1,1
+access_report_wizard,report.wizard,model_report_wizard,base.group_user,1,1,1,1
+access_res_address,res.address,model_res_address,base.group_user,1,1,1,1
+access_select_form_wizard,select.form.wizard,model_select_form_wizard,base.group_user,1,1,1,1
+access_agent_work_hours,agent.work.hours,model_agent_work_hours,base.group_user,1,1,1,1

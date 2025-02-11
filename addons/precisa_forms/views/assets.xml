@@ -1,0 +1,7 @@
+<!-- <odoo>
+    <template id="assets_backend" name="custom style" inherit_id="web.assets_backend">
+        <xpath expr="link[last()]" position="inside">
+            <link rel="stylesheet" type="type/css" href="/precisa_forms/static/src/css/custom_form_style.css"/>
+        </xpath>
+    </template>
+</odoo> -->

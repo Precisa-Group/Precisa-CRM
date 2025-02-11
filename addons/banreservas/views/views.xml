@@ -1,0 +1,548 @@
+<odoo>
+  <data>
+
+
+    <record id="view_res_banreservas_offices_tree" model="ir.ui.view">
+      <field name="name">res.banreservas.offices.tree</field>
+      <field name="model">res.banreservas.offices</field>
+      <field name="arch" type="xml">
+          <tree string="Oficinas Comerciales">
+              <field name="code" string="Código"/>
+              <field name="office_name" string="Nombre Oficina"/>
+              <field name="regional" string="Regional"/>
+              <field name="province" string="Provincia"/>
+          </tree>
+      </field>
+    </record>
+
+    <!-- Definición de la vista de árbol -->
+    <record id="view_banreservas_forms_tree" model="ir.ui.view">
+      <field name="name">banreservas_froms.tree</field>
+      <field name="model">banreservas.forms</field>
+      <field name="arch" type="xml">
+        
+        <tree default_order="id desc">
+          <field name="names" />
+          <field name="lastnames" />
+          <field name="tc_propouse" />
+          <field name="document" />
+          <field name="gender" />
+          <field name="form_state_section"  /> 
+          <field name="create_uid" string="Creador" />
+          <field name="close_date" string="Fecha" />
+          
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_banreservas_forms_search" model="ir.ui.view">
+      <field name="name">banreservas_froms.search</field>
+      <field name="model">banreservas.forms</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="document" placeholder="Buscar por cédula..."/>
+          <filter string="Campaña" domain='[]' name="campaign" context="{'group_by':'campaign_month'}"/>
+        </search>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="banreservas.action_window">
+      <field name="name">Formularios para banreservas</field>
+      <field name="res_model">banreservas.forms</field>
+      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_id" ref="view_banreservas_forms_tree"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Crea un nuevo formulario.
+        </p>
+      </field>
+    </record>
+
+    <record id="view_banreservas_form" model="ir.ui.view">
+      <field name="name">Formulario Banreservas</field>
+      <field name="model">banreservas.forms</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <field name="form_state_section" placeholder="Seleccione"/>
+            <field name="form_state"  placeholder="Seleccione" />
+          </header>
+        
+          <sheet>
+
+            <style>
+              .phone-icons {
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+              }
+
+              .phone-icons .icon-wrapper {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+              }
+
+              .phone-icons input[type="radio"] {
+                  display: none; /* Ocultar los inputs */
+              }
+
+              .phone-icons label {
+                  font-size: 18px;
+                  color: gray; /* Color inicial */
+                  cursor: pointer;
+                  transition: color 0.3s ease;
+              }
+
+              /* Cambiar color cuando el radio está seleccionado */
+              .phone-icons input[type="radio"]:checked + label.icon-x {
+                  color: red;
+              }
+
+              .phone-icons input[type="radio"]:checked + label.icon-check {
+                  color: green;
+              }
+
+              .phone-icons input[type="radio"]:checked + label.icon-dash {
+                  color: blue;
+              }
+            </style>
+
+            <div class="oe_form_group mt-4">
+
+              
+              
+              <div class="row">
+                <div class="col-3">
+                    <label for="close_date" class="o_form_label" style="font-size: 18px; font-weight: bold;">Fecha de cierre</label>
+                    <field name="close_date" class="o_field_widget"/>
+                </div>
+                <!-- Mes de la campaña -->
+                <div class="col-4 text-right">
+                    <label for="campaign_month" class="o_form_label" style="font-size: 18px; font-weight: bold;">Mes de la campaña</label>
+                    <field name="campaign_month" class="o_field_widget"/>
+                </div>
+             </div>
+              
+              
+                <div class="row">
+                  <!-- Teléfono 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_phone" class="o_form_label"></label>
+                      <field name="client_phone" force_save="1"/>
+                      
+                  </div>
+                  <div class="col-2 toggle-icon-container">
+                      <button name="change_phone" type="object" class="btn-primary toggle-icon-btn"
+                          attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times">
+                          
+                      </button>
+                  </div>
+
+                  <!-- Celular 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_mobile" class="o_form_label"></label>
+                      <field name="client_mobile" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- Teléfono 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_phone_2" class="o_form_label"></label>
+                      <field name="client_phone_2" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+
+                  <!-- Celular 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_mobile_2" class="o_form_label"></label>
+                      <field name="client_mobile_2" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <!-- Teléfono 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_phone_3" class="o_form_label">Telefono 1</label>
+                      <field name="client_phone_3" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+
+                  <!-- Celular 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_mobile_3" class="o_form_label"></label>
+                      <field name="client_mobile_3" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <!-- Teléfono 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_phone_4" class="o_form_label">Telefono 1</label>
+                      <field name="client_phone_4" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+
+                  <!-- Celular 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_mobile_4" class="o_form_label"></label>
+                      <field name="client_mobile_4" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- Teléfono 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_phone_5" class="o_form_label">Telefono 1</label>
+                      <field name="client_phone_5" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+
+                  <!-- Celular 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_mobile_5" class="o_form_label"></label>
+                      <field name="client_mobile_5" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- Teléfono 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_phone_6" class="o_form_label">Telefono 1</label>
+                      <field name="client_phone_6" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+
+                  <!-- Celular 1 con su botón de cambio -->
+                  <div class="col-4">
+                      <label for="client_mobile_6" class="o_form_label"></label>
+                      <field name="client_mobile_6" force_save="1"/>
+                  </div>
+                  <div class="col-2">
+                      <button name="change_phone" type="object"  class="btn-primary" 
+                              attrs="{'invisible': [('client_phone', '=', False)]}" icon="fa-times"/>
+                  </div>
+                </div>
+
+                  
+                <group>
+                  <group>
+                    <!-- <field name="client_phone" force_save='1'/>
+                    <button name="change_phone" type="object" string="x" class="btn-primary" attrs="{'invisible': [('client_phone', '=', False)]}"/>
+                    <field name="client_phone_2" force_save='1'/>
+                    <field name="client_phone_3" force_save='1'/> -->
+                    <field name="rd_amount_income_less_than_60m" force_save="1"/>
+                    <field name="tc_amount_income_less_than_60m" force_save="1"/>
+                  </group>
+                  <group>
+                    <!-- <field name="client_mobile" force_save='1'/>
+                    <field name="client_mobile_2" force_save='1'/>
+                    <field name="client_mobile_3" force_save='1'/> -->
+                    <field name="rd_amount_income_less_than_20m" force_save="1"/>
+                    <field name="tc_amount_income_less_than_20m" force_save="1"/>
+                  </group>
+              </group>
+              <div class="row justify-content-center">
+                  <!-- Primer campo sugerido -->
+                  <div class="col-md-3 text-center">
+                      <div class="form-group">
+                          
+                          <field name='can_edit_limits' invisible='1'/>
+                          <label for="propose_limit_rd" class="o_form_label" style="font-size: 18px; font-weight: bold; color: green;">Límite Sugerido</label>
+                          <field name="propose_limit_rd" class="form-control"  force_save="1" attrs="{'readonly': [('can_edit_limits', '=', False)]}" />
+                      </div>
+                  </div>
+                  <!-- Segundo campo sugerido -->
+                  <div class="col-md-3 text-center">
+                      <div class="form-group">
+                          <label for="propose_limit_us" class="o_form_label" style="font-size: 18px; font-weight: bold; color: green;">Producto Sugerido</label>
+                          <field name="propose_limit_us" class="form-control" attrs="{'readonly': [('can_edit_limits', '=', False)]}" force_save="1"/>
+                      </div>
+                  </div>
+                  <div class="col-md-3 text-center">
+                    <div class="form-group">
+                        <label for="tc_propouse" class="o_form_label" style="font-size: 18px; font-weight: bold; color: green;">Producto Sugerido</label>
+                        <field name="tc_propouse" class="form-control" attrs="{'readonly': [('can_edit_limits', '=', False)]}" force_save="1"/>
+                    </div>
+                  </div>
+                  <div class="col-md-3 text-center">
+                    <div class="form-group">
+                        <label for="income_amount" class="o_form_label" style="font-size: 18px; font-weight: bold; color: green;">Producto Sugerido</label>
+                        <field name="income_amount" class="form-control" readonly="0"/>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <h2>Producto</h2>
+            <group>
+              <group>
+                <field name='edit'/>
+                <field name='partner_id' force_save="1" invisible='1'/>
+                <!-- <button string="Generar Formularios" type="object" name="assign_existing_forms_to_clients" class="btn-primary"/> -->
+                <field name="requested_amount" />
+                <field name="requested_amount_US" />
+              </group>
+              <group>
+                  <field name="master_card" />
+                  <field name="document" /> 
+              </group>
+            </group>
+            <h2>Informaciones Personales</h2>
+            <group>
+              <group>
+                <field name='names'/>
+                <field name='lastnames'/>
+                <field name='marital_status'/>
+                <field name='gender'/>
+                <field name='nationality'/>
+                <field name='birth_date'/>
+                <field name='birth_place'/>
+                <field name='address_information'/>
+                <field name='type_of_housing'/>
+                <field name='street'/>
+                <field name="street_number" />
+                 
+              </group>
+  
+              <group>
+                <field name='reference'/>
+                <field name='building'/>
+                <field name='building_number'/>
+                <field name='sector'/>
+                <field name="state" />
+                <field name="municipality" />
+                <field name="borough" />
+                <field name="residential_phone" />
+                <field name="cellphone" />    
+                <field name="telephone_company" />
+                <field name="email" />
+                <field name="economic_activity" />
+
+              </group>
+            </group>
+
+            <notebook>
+              <page name="" string="Datos del Conyuge">
+                  <group>
+                    <field name="spouse_names" />
+                    <field name="spouse_lastnames" />
+                    <field name="spouse_document" />
+                  </group>
+              </page>
+              <page name="employment data" string="Datos Laborales">
+                <group>
+                  <group>
+                    <field name="work_type" />
+                    <field name="company_name" />
+                    <field name="entry_date" />
+                    <field name="occupation" />
+                    <field name="company_economic_activity" />
+                    <field name="employees_number" />
+                  </group>
+                  <group>
+                    <field name="monthly_income" />
+                    <field name="supervisor_name" />
+                    <field name="job_position" />
+                    <field name="job_phone" />
+                    <field name="others_incomes" />
+                    <field name="others_incomes_info" />
+                  </group>
+                </group>
+              </page>
+
+              <page name="" string="Empresa">
+                <h3>Direccion de la empresa</h3>
+                <group>
+                  <group>
+                    <field name="company_street" />
+                    <field name="company_street_number" />
+                    <field name="company_building" />
+                    <field name="company_apartment_number" />
+                    <field name="company_sector" />
+                  </group>
+                  <group>
+                    <field name="company_state" />
+                    <field name="company_municipality" />
+                    <field name="company_municipality_district" />
+                    <field name="company_phone" />
+                    <field name="company_mail" />
+                  </group>
+                </group>
+              </page>
+
+              <page name="" string="Pariente">
+                <h3>Pariente cercano que no viva con usted</h3>
+                <group>
+                  <field name="relative_name" />
+                  <field name="kinship" />
+                  <field name="relative_phones" />
+                </group>
+              </page>
+              <page name="" string="Referencias">
+                <h3>Referencias comerciales y personales</h3>
+                  <group>
+                    <field name="name_1" />
+                    
+                    <field name="phone_1" />
+                  </group>
+              </page>
+
+              <page name="" string="Tarjeta">
+                <h3>Datos de la tarjeta</h3>
+                <group>
+                  <field name="card_address" string="Dirección donde deseo mi tarjeta" widget='many2one'/>
+                </group>
+              </page>
+              <page name="" string="Tarjeta Adicional">
+                  <h3>Tarjeta adicional</h3>
+                  <group>
+                      <group>
+                          <field name="additional_card"/>
+                      </group>
+                      <group attrs="{'invisible': [('additional_card', '=', False)]}">
+                          <field name="additional_card_names"/>
+                          <field name="additional_card_lastnames"/>
+                          <field name="additional_card_document"/>
+                          <field name="additional_card_kinship"/>
+                          <field name="additional_card_name"/>
+                      </group>
+                  </group>
+              </page>
+
+
+              <page name="" string="Producto">
+                  <group>
+                    <field name="comment" />
+                  </group>
+              </page>
+
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_kanban_banreservas" model="ir.ui.view">
+      <field name="name">banreservas.forms.kanban</field>
+      <field name="model">banreservas.forms</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="form_state_section" class="o_kanban_small_column o_opportunity_kanban" archivable="false" sample="1" records_draggable="0"> 
+          <templates>
+              <t t-name="kanban-box">
+                <div t-attf-class="oe_kanban_global_click card">
+                  <div class="card-header d-flex justify-content-between align-items-center" >
+                    <strong class="text-primary">
+                      <field name="names" />
+                      <field name="lastnames"/>
+                    </strong>
+                  </div>
+                  <div class="card-body">
+                    <strong>
+                      Cédula:
+                    </strong>
+                    <field name="document"/>
+                    <br/>
+                    <strong>
+                      Producto:
+                    </strong>
+                    <field name="tc_propouse"/>
+                    <br/>
+                    
+                  </div>
+
+                </div>
+              </t>
+          </templates>
+       </kanban>
+       
+      </field>
+    </record>
+
+    <!-- <record id="view_search_banreservas" model="ir.ui.view">
+        <field name="name">banreservas.forms.search</field>
+        <field name="model">banreservas.forms</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="my_flows" string="Mis Flujos" domain="[('assigned_user_id', '=', uid)]"/>
+                <field name="names"/>
+                <field name="lastnames"/>
+            </search>
+        </field>
+    </record> -->
+
+
+    <record id="view_banreservas_forms_tree" model="ir.ui.view">
+      <field name="name">banreservas.forms.tree</field>
+      <field name="model">banreservas.forms</field>
+      <field name="arch" type="xml">
+          <tree >
+              <field name='names'/>
+          </tree>
+      </field>
+    </record>
+
+    <menuitem id="menu_forms_banreservas"
+              name="Banreservas"
+              parent="crm.crm_menu_root"  
+              sequence="11"
+              groups="banreservas.group_banreservas"   
+    />
+
+    <menuitem id="submenu_forms_banreservas"
+              name="Formularios"
+              parent="menu_forms_banreservas"  
+              action="banreservas.action_window"
+              
+    />
+  
+  
+    <record id="export_forms_excel_productivity" model="ir.actions.server">
+      <field name="name">Productividad</field>
+      <field name="model_id" ref="model_banreservas_forms"/>
+      <field name="state">code</field>
+      <field name="code">
+          action = model.export_form_productivity()
+      </field>
+    </record>
+
+  </data>
+</odoo>

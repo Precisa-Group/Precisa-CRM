@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <record id="view_report_wizard_form_equifax" model="ir.ui.view">
+            <field name="name">report.wizard.form</field>
+            <field name="model">report.wizard.equifax</field>
+            <field name="arch" type="xml">
+                <form string="Generar Reporte de Gestiones">
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="status"/>
+                        <field name="agent_id"/>
+                    </group>
+                    <footer>
+                        <button string="Generar Reporte" name="generate_report" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_wizard_equifax" model="ir.actions.act_window">
+            <field name="name">Generar Reporte</field>
+            <field name="res_model">report.wizard.equifax</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="action_open_client_counter_wizard" model="ir.actions.act_window">
+            <field name="name">Clientes por Gestionar</field>
+            <field name="res_model">equifax.client.counter.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="wizard"
+              name="Reportes"
+              parent="menu_equifax"
+              action="action_report_wizard_equifax"
+              sequence="2" 
+        />
+
+        <menuitem id="user_info"
+              name="Prospectos"
+              parent="menu_equifax"
+              action="action_open_client_counter_wizard"
+              sequence="3" 
+        />
+        
+    </data>
+</odoo>

@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <record id="view_report_wizard_form_br" model="ir.ui.view">
+            <field name="name">banreservas.wizard.form</field>
+            <field name="model">form.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generar Reporte De Formularios Vendidos">
+                    <field name="date" string="Seleccione La Fechas Deseada" />
+                    <footer>
+                        <button string="Generar Formularios" type="object" name="export_forms_excel" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_wizard_br" model="ir.actions.act_window">
+            <field name="name">Generar Reporte</field>
+            <field name="res_model">form.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="action_report_general_wizard_br" model="ir.actions.act_window">
+            <field name="name">Generar Reporte</field>
+            <field name="res_model">report.wizard.banreservas</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="view_report_general_wizard_br" model="ir.ui.view">
+            <field name="name">report.wizard.banreservas</field>
+            <field name="model">report.wizard.banreservas</field>
+            <field name="arch" type="xml">
+                <form string="Generar Reporte De Formularios">
+                    <group>
+                        <field name="start_date" />
+                        <field name="end_date"/>
+                        <field name="agent_id" />
+                    </group>
+                    
+                    <group>
+                        <field name="form_state_section"/>
+                        <field name="form_state"/>
+                        <field name="campaing_month"/>
+                        <field name="phone_numbers"/>
+                    </group>
+                    
+
+                    <footer>
+                        <button string="Generar Formularios" type="object" name="generate_report" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_productivity_report_wizard_br" model="ir.ui.view">
+            <field name="name">Reporte De Productividad</field>
+            <field name="model">productivity.wizard.banreservas</field>
+            <field name="arch" type="xml">
+                <form string="Generar Reporte De Productividad">
+                    <h4>Seleccione la fecha deseada</h4>
+                    <br/>
+                    <field name="date"/>
+                    <footer>
+                        <button string="Generar Reporte" type="object" name="export_productivity_report" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_productivity_report_wizard_br" model="ir.actions.act_window">
+            <field name="name">Generar Reporte De Productividad</field>
+            <field name="res_model">productivity.wizard.banreservas</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="banreservas_wizard"
+              name="Generar Formularios"
+              parent="menu_forms_banreservas"
+              action="action_report_wizard_br"
+              
+        />
+
+        <menuitem id="reports_wizard"
+              name="Generar reportes"
+              parent="menu_forms_banreservas"
+              action="action_report_general_wizard_br"
+        />
+
+        <menuitem id="productivity_wizard"
+              name="Productividad"
+              parent="menu_forms_banreservas"
+              action="action_productivity_report_wizard_br"
+        />
+   
+    </data>
+</odoo>

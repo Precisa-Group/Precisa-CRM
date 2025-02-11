@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+
+        <record id="view_res_partner_tree_custom" model="ir.ui.view">
+            <field name="name">res.partner.tree.custom</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="document"/>
+                    <field name="tc_propouse"/>
+                    <field name="campaign"/>
+                    <field name="user_id"/>
+                    <field name="campaing_month"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_reassign_customers_wizard_form" model="ir.ui.view">
+            <field name="name">reassign.customers.wizard.form</field>
+            <field name="model">reassign.customers.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Reasignar Clientes">
+                    <group>
+                        <field name="partner_ids" widget="many2many" options="{'no_create': True}" views="{'tree': 'view_res_partner_tree_custom'}">
+                            <tree string="Clientes">
+                                <field name="first_name"/>
+                                <field name="last_name"/>
+                                <field name="document"/>
+                                <field name="tc_propouse"/>
+                                <field name="campaign"/>
+                                <field name="user_id"/>
+                                <field name="campaing_month"/>
+                            </tree>
+                        </field>
+                        <field name="new_user_id"/>
+                    </group>
+                    <footer>
+                        <button string="Reasignar" type="object" name="reassign_customers" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="menu_reassign_customers" 
+          name="Reasignar Clientes" 
+          parent="menu_forms_banreservas"
+          action="action_open_reassign_wizard" 
+          groups="banreservas.group_edit_propose_limit"
+        />
+          
+        <record id="action_open_reassign_wizard" model="ir.actions.act_window">
+            <field name="name">Reasignar Clientes</field>
+            <field name="res_model">reassign.customers.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
