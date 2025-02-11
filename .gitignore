@@ -1,0 +1,10 @@
+backup
+config
+odoo-db-data
+odoo-web-data
+docker-compose.yml
+.env
+odoo_image.tar
+odoo-db-data.tar.gz
+odoo-web-data.tar.gz
+postgres_image.tar
